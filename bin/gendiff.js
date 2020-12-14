@@ -9,4 +9,8 @@ program
 program
   .helpOption('-h, --help', 'output usage information');
 
+program
+  .arguments('<filepath1> <filepath2>')
+  .option('-f --format [type]', 'output format')
+
 program.parse(process.argv);
