@@ -11,4 +11,4 @@ gendiff:
 		node bin/gendiff.js
 
 test:
-		npx -n --experimental-vm-modules jest
+		npm test
