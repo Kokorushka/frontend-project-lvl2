@@ -29,7 +29,7 @@ const switchCompare = (mergedFile, sourceFile1, sourceFile2) => {
   return `{\n${result.join('\n')}\n}`;
 };
 
-const compareFiles = (filePath1, filePath2) => {
+const genDiff = (filePath1, filePath2) => {
   const file1 = getContent(filePath1);
   const file2 = getContent(filePath2);
   const mergedFile = { ...file1, ...file2 };
@@ -37,4 +37,4 @@ const compareFiles = (filePath1, filePath2) => {
   return result;
 };
 
-export default compareFiles;
+export default genDiff;
