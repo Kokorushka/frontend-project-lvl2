@@ -11,5 +11,13 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
 test('flat_json', () => {
-  expect(genDiff(getFixturePath('before.json'), getFixturePath('after.json'))).toEqual(readFile('result_flat.json'));
+  const flatJson = `{
+- follow: false
+  host: hexlet.io
+- proxy: 123.234.53.22
+- timeout: 50
++ timeout: 20
++ verbose: true
+}`;
+  expect(genDiff(getFixturePath('before.json'), getFixturePath('after.json'))).toEqual(flatJson);
 });
