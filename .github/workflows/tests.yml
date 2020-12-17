@@ -6,7 +6,7 @@ on: push
 jobs:
   # Set the job key. The key is displayed as the job name
   # when a job name is not provided
-  test:
+  coverage:
     runs-on: ubuntu-latest
     strategy:
       # Node versions list
@@ -26,10 +26,13 @@ jobs:
           make install
         env:
           CI: true
-      - name: Run tests 
-        run: |
-          make test-coverage
+      - name: Test & publish code coverage
+        # Publish code coverage on Code Climate
+        # https://github.com/paambaati/codeclimate-action
+        uses: paambaati/codeclimate-action@v2.7.4
+        # Add Code Climate secret key
         env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true
