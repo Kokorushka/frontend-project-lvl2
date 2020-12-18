@@ -30,6 +30,4 @@ jobs:
         run: |
           make test-coverage
         env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE }}
