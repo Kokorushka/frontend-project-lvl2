@@ -26,8 +26,10 @@ jobs:
           make install
         env:
           CI: true
-      - name: Run tests 
-        run: |
-          make test-coverage
+      - name: Run tests
+        uses: paambaati/codeclimate-action@v2.7.4
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true
