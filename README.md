@@ -5,3 +5,6 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/7c5396544a9dd60a181f/test_coverage)](https://codeclimate.com/github/Kokorushka/frontend-project-lvl2/test_coverage)
 
 Проект "Вычислитель отличий"
+
+Работа с "плоскими" файлами форматов .json и .yml
+[![asciicast](https://asciinema.org/a/UQdyl3cE7BFsFKN0TCYMk0pM2.svg)](https://asciinema.org/a/UQdyl3cE7BFsFKN0TCYMk0pM2)

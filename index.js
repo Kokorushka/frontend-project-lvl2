@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import getContent from './src/getContent.js';
+import format from './src/parsers.js';
 
 const sortObjectbyKeys = (obj) => {
   const sorted = {};
@@ -30,8 +30,8 @@ const switchCompare = (mergedFile, sourceFile1, sourceFile2) => {
 };
 
 const genDiff = (filePath1, filePath2) => {
-  const file1 = getContent(filePath1);
-  const file2 = getContent(filePath2);
+  const file1 = format(filePath1);
+  const file2 = format(filePath2);
   const mergedFile = { ...file1, ...file2 };
   const result = switchCompare(mergedFile, file1, file2);
   return result;
