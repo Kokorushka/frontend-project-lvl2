@@ -12,13 +12,13 @@ const sortObjectbyKeys = (obj) => {
 const switchCompare = (mergedFile, sourceFile1, sourceFile2) => {
   const sortedMergedF = sortObjectbyKeys(mergedFile);
   const result = Object.keys(sortedMergedF).reduce((acc, key) => {
-    if ((_.has(sourceFile1, key)) && (_.has(sourceFile2, key))) {
-      if (sourceFile1[key] === sourceFile2[key]) {
-        acc.push(`  ${key}: ${sourceFile1[key]}`);
-      } else {
-        acc.push(`- ${key}: ${sourceFile1[key]}`);
-        acc.push(`+ ${key}: ${sourceFile2[key]}`);
-      }
+    if (_.has(sourceFile1, key) && _.has(sourceFile2, key)
+    && sourceFile1[key] === sourceFile2[key]) {
+      acc.push(`  ${key}: ${sourceFile1[key]}`);
+    } else if (_.has(sourceFile1, key) && _.has(sourceFile2, key)
+      && sourceFile1[key] !== sourceFile2[key]) {
+      acc.push(`- ${key}: ${sourceFile1[key]}`);
+      acc.push(`+ ${key}: ${sourceFile2[key]}`);
     } else if ((_.has(sourceFile1, key)) && (!_.has(sourceFile2, key))) {
       acc.push(`- ${key}: ${sourceFile1[key]}`);
     } else if ((!_.has(sourceFile1, key)) && (_.has(sourceFile2, key))) {
