@@ -8,3 +8,6 @@
 
 Работа с "плоскими" файлами форматов .json и .yml
 [![asciicast](https://asciinema.org/a/UQdyl3cE7BFsFKN0TCYMk0pM2.svg)](https://asciinema.org/a/UQdyl3cE7BFsFKN0TCYMk0pM2)
+
+Рекурсивное сравнение
+[![asciicast](https://asciinema.org/a/UQdyl3cE7BFsFKN0TCYMk0pM2.svg)](https://asciinema.org/a/AOp9y3esb19hFANIQN8ai9UjN)

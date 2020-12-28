@@ -2,9 +2,8 @@ import yaml from 'js-yaml';
 // import fs from 'fs';
 import path from 'path';
 import getContent from './getContent.js';
-// import ini from 'ini';
 
-const format = (filepath) => {
+const parse = (filepath) => {
   const configPath = path.extname(filepath);
   const fileContent = getContent(filepath);
   switch (configPath) {
@@ -17,4 +16,4 @@ const format = (filepath) => {
   }
 };
 
-export default format;
+export default parse;
