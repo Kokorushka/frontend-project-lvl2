@@ -8,7 +8,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-// const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 const expectedResult = `{
     common: {
       + follow: false
@@ -53,9 +52,26 @@ const expectedResult = `{
         }
     }
 }`;
-test('flat_json', () => {
-  expect(genDiff(getFixturePath('before.json'), getFixturePath('after.json'))).toEqual(expectedResult);
+const expectedPlain = `Property 'common.follow' was added with value: false
+Property 'common.setting2' was removed
+Property 'common.setting3' was updated. From true to null
+Property 'common.setting4' was added with value: 'blah blah'
+Property 'common.setting5' was added with value: [complex value]
+Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
+Property 'common.setting6.ops' was added with value: 'vops'
+Property 'group1.baz' was updated. From 'bas' to 'bars'
+Property 'group1.nest' was updated. From [complex value] to 'str'
+Property 'group2' was removed
+Property 'group3' was added with value: [complex value]`;
+test('nested json', () => {
+  expect(genDiff(getFixturePath('before.json'), getFixturePath('after.json'), 'stylish')).toEqual(expectedResult);
 });
-test('flat yaml', () => {
-  expect(genDiff(getFixturePath('before.yml'), getFixturePath('after.yml'))).toEqual(expectedResult);
+test('nested yaml', () => {
+  expect(genDiff(getFixturePath('before.yml'), getFixturePath('after.yml'), 'stylish')).toEqual(expectedResult);
+});
+test('plain format', () => {
+  expect(genDiff(getFixturePath('before.json'), getFixturePath('after.json'), 'plain')).toEqual(expectedPlain);
+});
+test('plain format yaml', () => {
+  expect(genDiff(getFixturePath('before.yml'), getFixturePath('after.yml'), 'plain')).toEqual(expectedPlain);
 });
