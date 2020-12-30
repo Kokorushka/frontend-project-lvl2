@@ -10,7 +10,7 @@
 [![asciicast](https://asciinema.org/a/UQdyl3cE7BFsFKN0TCYMk0pM2.svg)](https://asciinema.org/a/UQdyl3cE7BFsFKN0TCYMk0pM2)
 
 Рекурсивное сравнение
-[![asciicast](https://asciinema.ohttps://asciinema.org/a/a2gh8Cadrz6FmGBOqxIWsG7ETrg/a/AOp9y3esb19hFANIQN8ai9UjN.svg)](https://asciinema.org/a/AOp9y3esb19hFANIQN8ai9UjN)
+[![asciicast](https://asciinema.org/a/AOp9y3esb19hFANIQN8ai9UjN.svg)](https://asciinema.org/a/AOp9y3esb19hFANIQN8ai9UjN)
 
 Плоский формат
 [![asciicast](https://asciinema.org/a/a2gh8Cadrz6FmGBOqxIWsG7ET.svg)](https://asciinema.org/a/a2gh8Cadrz6FmGBOqxIWsG7ET)
