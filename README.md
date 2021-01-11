@@ -14,3 +14,6 @@
 
 Плоский формат
 [![asciicast](https://asciinema.org/a/a2gh8Cadrz6FmGBOqxIWsG7ET.svg)](https://asciinema.org/a/a2gh8Cadrz6FmGBOqxIWsG7ET)
+
+JSON формат
+[![asciicast](https://asciinema.org/a/awSn0Y7efytlOBY0YThko1Y7o.svg)](https://asciinema.org/a/awSn0Y7efytlOBY0YThko1Y7o)

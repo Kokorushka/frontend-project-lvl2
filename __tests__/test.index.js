@@ -1,5 +1,4 @@
 import { test, expect } from '@jest/globals';
-// import fs from 'fs';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import genDiff from '../index.js';
@@ -63,6 +62,8 @@ Property 'group1.baz' was updated. From 'bas' to 'bars'
 Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
+const expectedJson = '[{"key":"common","children":[{"key":"follow","status":"added","value":false},{"key":"setting1","status":"unchanged","value":"Value 1"},{"key":"setting2","status":"deleted","value":200},{"key":"setting3","status":"changed","valueAfter":null,"valueBefore":true},{"key":"setting4","status":"added","value":"blah blah"},{"key":"setting5","status":"added","value":{"key5":"value5"}},{"key":"setting6","children":[{"key":"doge","children":[{"key":"wow","status":"changed","valueAfter":"so much","valueBefore":""}],"status":"nested"},{"key":"key","status":"unchanged","value":"value"},{"key":"ops","status":"added","value":"vops"}],"status":"nested"}],"status":"nested"},{"key":"group1","children":[{"key":"baz","status":"changed","valueAfter":"bars","valueBefore":"bas"},{"key":"foo","status":"unchanged","value":"bar"},{"key":"nest","status":"changed","valueAfter":"str","valueBefore":{"key":"value"}}],"status":"nested"},{"key":"group2","status":"deleted","value":{"abc":12345,"deep":{"id":45}}},{"key":"group3","status":"added","value":{"fee":100500,"deep":{"id":{"number":45}}}}]';
+
 test('nested json', () => {
   expect(genDiff(getFixturePath('before.json'), getFixturePath('after.json'), 'stylish')).toEqual(expectedResult);
 });
@@ -74,4 +75,10 @@ test('plain format', () => {
 });
 test('plain format yaml', () => {
   expect(genDiff(getFixturePath('before.yml'), getFixturePath('after.yml'), 'plain')).toEqual(expectedPlain);
+});
+test('json format', () => {
+  expect(genDiff(getFixturePath('before.json'), getFixturePath('after.json'), 'json')).toEqual(expectedJson);
+});
+test('json format yaml', () => {
+  expect(genDiff(getFixturePath('before.yml'), getFixturePath('after.yml'), 'json')).toEqual(expectedJson);
 });
