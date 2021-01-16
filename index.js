@@ -3,7 +3,7 @@ import parse from './src/parsers.js';
 import format from './src/formatters/index.js';
 
 const compare = (file1, file2) => {
-  const keys = _.union(Object.keys(file1), Object.keys(file2));
+  const keys = _.sortBy(_.union(Object.keys(file1), Object.keys(file2)));
   const result = keys.map((key) => {
     if (!_.has(file1, key)) {
       return { key, status: 'added', value: file2[key] };
