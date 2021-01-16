@@ -2,17 +2,8 @@ import _ from 'lodash';
 import parse from './src/parsers.js';
 import format from './src/formatters/index.js';
 
-const sortObjectbyKeys = (obj) => {
-  const sorted = {};
-  Object.keys(obj).sort().forEach((key) => {
-    sorted[key] = obj[key];
-  });
-  return sorted;
-};
-
 const compare = (file1, file2) => {
-  const mergedFile = sortObjectbyKeys({ ...file1, ...file2 });
-  const keys = Object.keys(mergedFile);
+  const keys = _.union(Object.keys(file1), Object.keys(file2));
   const result = keys.map((key) => {
     if (!_.has(file1, key)) {
       return { key, status: 'added', value: file2[key] };
