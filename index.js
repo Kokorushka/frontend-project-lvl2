@@ -35,7 +35,7 @@ const compare = (file1, file2) => {
   });
   return result;
 };
-const genDiff = (filePath1, filePath2, type) => {
+const genDiff = (filePath1, filePath2, type = 'stylish') => {
   const file1 = parse(filePath1);
   const file2 = parse(filePath2);
   const difference = compare(file1, file2);
