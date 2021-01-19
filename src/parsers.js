@@ -5,4 +5,11 @@ const mapping = {
   yml: yaml.safeLoad,
 };
 
-export default (data, dataType) => mapping[dataType](data);
+export default (data, dataType) => {
+  const parse = mapping[dataType];
+
+  if (!parse) {
+    throw new Error(`Файлы данного формата ${dataType} не поддерживается`);
+  }
+  return parse(data);
+};

@@ -8,4 +8,10 @@ const mapping = {
   json: renderJson,
 };
 
-export default (astTree, outputStyle) => mapping[outputStyle](astTree);
+export default (astTree, outputStyle) => {
+  const format = mapping[outputStyle];
+  if (!format) {
+    throw new Error(`Указан несуществующий тип вывода данных ${outputStyle}`);
+  }
+  return format(astTree);
+};
