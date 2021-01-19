@@ -2,17 +2,10 @@ import renderTree from './stylish.js';
 import renderPlain from './plain.js';
 import renderJson from './json.js';
 
-const format = (tree, type) => {
-  switch (type) {
-    case 'stylish':
-      return renderTree(tree);
-    case 'plain':
-      return renderPlain(tree);
-    case 'json':
-      return renderJson(tree);
-    default:
-      return 'error in formatters/index.js';
-  }
+const mapping = {
+  stylish: renderTree,
+  plain: renderPlain,
+  json: renderJson,
 };
 
-export default format;
+export default (astTree, outputStyle) => mapping[outputStyle](astTree);

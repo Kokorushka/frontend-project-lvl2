@@ -13,27 +13,27 @@ const transformValue = (value) => {
 const renderPlain = (diffTree) => {
   const iter = (tree, acc) => {
     const plainTree = tree
-      .filter((item) => item.status !== 'unchanged')
+      .filter((item) => item.type !== 'unchanged')
       .map((item) => {
         const {
           key,
           value,
-          status,
+          type,
           valueAfter,
           valueBefore,
           children,
         } = item;
         const newAcc = [...acc, key];
-        if (status === 'added') {
+        if (type === 'added') {
           return `Property '${newAcc.join('.')}' was added with value: ${transformValue(value)}`;
         }
-        if (status === 'deleted') {
+        if (type === 'deleted') {
           return `Property '${newAcc.join('.')}' was removed`;
         }
-        if (status === 'changed') {
+        if (type === 'changed') {
           return `Property '${newAcc.join('.')}' was updated. From ${transformValue(valueBefore)} to ${transformValue(valueAfter)}`;
         }
-        if (status === 'nested') {
+        if (type === 'nested') {
           return `${iter(children, newAcc)}`;
         }
         return [];

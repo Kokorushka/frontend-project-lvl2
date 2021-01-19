@@ -18,12 +18,12 @@ const renderTree = (diffTree) => {
       const {
         key,
         value,
-        status,
+        type,
         valueAfter,
         valueBefore,
         children,
       } = item;
-      switch (status) {
+      switch (type) {
         case 'added':
           return (`${genIndent(indent, depth + 1)}+ ${key}: ${transformObject(value, depth)}`);
         case 'deleted':
@@ -35,7 +35,7 @@ const renderTree = (diffTree) => {
         case 'nested':
           return (`${genIndent(indent, depth + 1)}  ${key}: ${iter(children, depth + 2)}`);
         default:
-          return `${status} in unknown`;
+          return `${type} in unknown`;
       }
     });
     return `{\n${[...result, genIndent(indent, depth)].join('\n')}}`;
