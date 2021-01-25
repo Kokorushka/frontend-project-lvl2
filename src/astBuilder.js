@@ -24,7 +24,7 @@ const buildNode = (data1, data2) => {
         type: 'nested',
       };
     }
-    if (data1[key] !== data2[key]) {
+    if (!_.isEqual(data1[key], data2[key])) {
       return {
         key,
         type: 'changed',

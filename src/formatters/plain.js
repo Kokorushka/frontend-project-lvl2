@@ -10,6 +10,13 @@ const transformValue = (value) => {
   return value;
 };
 
+const isNodeRoot = (diffTree, func) => {
+  if (diffTree.type === 'root') {
+    return func(diffTree.children, []);
+  }
+  return diffTree;
+};
+
 const renderPlain = (diffTree) => {
   const iter = (tree, acc) => {
     const plainTree = tree
@@ -23,23 +30,24 @@ const renderPlain = (diffTree) => {
           valueBefore,
           children,
         } = item;
-        const newAcc = [...acc, key];
-        if (type === 'added') {
-          return `Property '${newAcc.join('.')}' was added with value: ${transformValue(value)}`;
+        const propertyName = [...acc, key];
+        switch (type) {
+          case 'root':
+            return `${iter(children, propertyName)}`;
+          case 'added':
+            return `Property '${propertyName.join('.')}' was added with value: ${transformValue(value)}`;
+          case 'deleted':
+            return `Property '${propertyName.join('.')}' was removed`;
+          case 'changed':
+            return `Property '${propertyName.join('.')}' was updated. From ${transformValue(valueBefore)} to ${transformValue(valueAfter)}`;
+          case 'nested':
+            return `${iter(children, propertyName)}`;
+          default:
+            return [];
         }
-        if (type === 'deleted') {
-          return `Property '${newAcc.join('.')}' was removed`;
-        }
-        if (type === 'changed') {
-          return `Property '${newAcc.join('.')}' was updated. From ${transformValue(valueBefore)} to ${transformValue(valueAfter)}`;
-        }
-        if (type === 'nested') {
-          return `${iter(children, newAcc)}`;
-        }
-        return [];
       });
     return plainTree.join('\n');
   };
-  return iter(diffTree, []);
+  return isNodeRoot(diffTree, iter);
 };
 export default renderPlain;
