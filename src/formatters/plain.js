@@ -10,44 +10,38 @@ const transformValue = (value) => {
   return value;
 };
 
-const isNodeRoot = (diffTree, func) => {
-  if (diffTree.type === 'root') {
-    return func(diffTree.children, []);
-  }
-  return diffTree;
-};
-
 const renderPlain = (diffTree) => {
-  const iter = (tree, acc) => {
-    const plainTree = tree
-      .filter((item) => item.type !== 'unchanged')
-      .map((item) => {
-        const {
-          key,
-          value,
-          type,
-          valueAfter,
-          valueBefore,
-          children,
-        } = item;
-        const propertyName = [...acc, key];
-        switch (type) {
-          case 'root':
-            return `${iter(children, propertyName)}`;
-          case 'added':
-            return `Property '${propertyName.join('.')}' was added with value: ${transformValue(value)}`;
-          case 'deleted':
-            return `Property '${propertyName.join('.')}' was removed`;
-          case 'changed':
-            return `Property '${propertyName.join('.')}' was updated. From ${transformValue(valueBefore)} to ${transformValue(valueAfter)}`;
-          case 'nested':
-            return `${iter(children, propertyName)}`;
-          default:
-            return [];
-        }
-      });
-    return plainTree.join('\n');
+  const iter = (node, acc) => {
+    const {
+      key,
+      value,
+      type,
+      valueAfter,
+      valueBefore,
+      children,
+    } = node;
+    const propertyName = [...acc, key];
+    switch (type) {
+      case 'added':
+        return `Property '${propertyName.join('.')}' was added with value: ${transformValue(value)}`;
+      case 'deleted':
+        return `Property '${propertyName.join('.')}' was removed`;
+      case 'changed':
+        return `Property '${propertyName.join('.')}' was updated. From ${transformValue(valueBefore)} to ${transformValue(valueAfter)}`;
+      case 'nested':
+        return children
+          .filter((child) => child.type !== 'unchanged')
+          .map((child) => iter(child, propertyName))
+          .join('\n');
+      case 'root':
+        return children
+          .filter((child) => child.type !== 'unchanged')
+          .map((child) => iter(child, acc))
+          .join('\n');
+      default:
+        throw new Error(`Unknown type ${type} of node in the object`);
+    }
   };
-  return isNodeRoot(diffTree, iter);
+  return iter(diffTree, []);
 };
 export default renderPlain;

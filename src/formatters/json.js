@@ -1,10 +1,3 @@
-const isNodeRoot = (diffTree) => {
-  if (diffTree.type === 'root') {
-    return diffTree.children;
-  }
-  return diffTree;
-};
-
-const renderJson = (diffTree) => JSON.stringify(isNodeRoot(diffTree));
+const renderJson = (tree) => `[${JSON.stringify(tree)}]`;
 
 export default renderJson;
