@@ -12,8 +12,8 @@ const transformObject = (value, depth) => {
     return value;
   }
   const keys = Object.keys(value);
-  const result = keys.map((key) => `${genIndent(depth + indentSize * 2)}${key}: ${transformObject(value[key], depth + indentSize)}`);
-  return `{\n${[...result, genIndent(depth + indentSize)].join('\n')}}`;
+  const result = keys.map((key) => `${genIndent((depth + 1) * indentSize)}${key}: ${transformObject(value[key], depth + 1)}`);
+  return `{\n${result.join('\n')}\n${genIndent(depth * indentSize)}}`;
 };
 
 const renderTree = (diffTree) => {
@@ -28,17 +28,17 @@ const renderTree = (diffTree) => {
     } = node;
     switch (type) {
       case 'added':
-        return (`${genIndent(depth + indentSize - 2)}+ ${key}: ${transformObject(value, depth)}`);
+        return (`${genIndent(depth * indentSize - 2)}+ ${key}: ${transformObject(value, depth)}`);
       case 'deleted':
-        return (`${genIndent(depth + indentSize - 2)}- ${key}: ${transformObject(value, depth)}`);
+        return (`${genIndent(depth * indentSize - 2)}- ${key}: ${transformObject(value, depth)}`);
       case 'changed':
-        return (`${genIndent(depth + indentSize - 2)}- ${key}: ${transformObject(valueBefore, depth)}\n${genIndent(depth + indentSize - 2)}+ ${key}: ${transformObject(valueAfter, depth)}`);
+        return (`${genIndent(depth * indentSize - 2)}- ${key}: ${transformObject(valueBefore, depth)}\n${genIndent(depth * indentSize - 2)}+ ${key}: ${transformObject(valueAfter, depth)}`);
       case 'unchanged':
-        return (`${genIndent(depth + indentSize)}${key}: ${transformObject(value, depth)}`);
+        return (`${genIndent(depth * indentSize)}${key}: ${transformObject(value, depth)}`);
       case 'nested':
-        return (`${genIndent(depth + indentSize)}${key}: {\n${(children.map((child) => iter(child, depth + indentSize))).join('\n')}\n${genIndent(depth + indentSize)}}`);
+        return (`${genIndent(depth * indentSize)}${key}: {\n${(children.map((child) => iter(child, depth + 1))).join('\n')}\n${genIndent(depth * indentSize)}}`);
       case 'root':
-        return (`{\n${(children.map((child) => iter(child, depth))).join('\n')}\n}`);
+        return (`{\n${(children.map((child) => iter(child, depth + 1))).join('\n')}\n}`);
       default:
         throw new Error(`${type} in unknown`);
     }
